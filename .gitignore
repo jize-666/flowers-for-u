@@ -1,0 +1,11 @@
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.blend1
+*.blend2
+blender/generated/
+static/vendor/three/
+static/vendor/gsap/

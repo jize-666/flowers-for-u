@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: only three specific flowers are letter triggers
+ok 1 - only three specific flowers are letter triggers
+  ---
+  duration_ms: 1.770613
+  type: 'test'
+  ...
+# Subtest: every quality tier retains all interactive flowers
+ok 2 - every quality tier retains all interactive flowers
+  ---
+  duration_ms: 0.248358
+  type: 'test'
+  ...
+# Subtest: growth and bloom use positive, overlapping durations
+ok 3 - growth and bloom use positive, overlapping durations
+  ---
+  duration_ms: 0.135631
+  type: 'test'
+  ...
+# Subtest: the approved message is preserved
+ok 4 - the approved message is preserved
+  ---
+  duration_ms: 0.090945
+  type: 'test'
+  ...
+# Subtest: typing is monotonic, begins empty and ends with the complete text
+ok 5 - typing is monotonic, begins empty and ends with the complete text
+  ---
+  duration_ms: 10.684189
+  type: 'test'
+  ...
+# Subtest: typing preserves grapheme clusters
+ok 6 - typing preserves grapheme clusters
+  ---
+  duration_ms: 0.172976
+  type: 'test'
+  ...
+# Subtest: punctuation introduces a reading pause
+ok 7 - punctuation introduces a reading pause
+  ---
+  duration_ms: 0.254677
+  type: 'test'
+  ...
+# Subtest: a click is not a drag, long press, or another pointer
+ok 8 - a click is not a drag, long press, or another pointer
+  ---
+  duration_ms: 0.144404
+  type: 'test'
+  ...
+# Subtest: wind is smooth, finite, and anchored when growth is zero
+ok 9 - wind is smooth, finite, and anchored when growth is zero
+  ---
+  duration_ms: 0.365031
+  type: 'test'
+  ...
+# Subtest: damping is independent of frame rate
+ok 10 - damping is independent of frame rate
+  ---
+  duration_ms: 0.394305
+  type: 'test'
+  ...
+# Subtest: random scene layout helpers are deterministic
+ok 11 - random scene layout helpers are deterministic
+  ---
+  duration_ms: 0.219014
+  type: 'test'
+  ...
+# Subtest: a drag returning to its starting point is never a click
+ok 12 - a drag returning to its starting point is never a click
+  ---
+  duration_ms: 0.086068
+  type: 'test'
+  ...
+# Subtest: a negative pointer duration is rejected
+ok 13 - a negative pointer duration is rejected
+  ---
+  duration_ms: 0.065067
+  type: 'test'
+  ...
+# Subtest: quality retains triggers after the user reorders flowers
+ok 14 - quality retains triggers after the user reorders flowers
+  ---
+  duration_ms: 0.736551
+  type: 'test'
+  ...
+# Subtest: quality budget never hides a trigger, even if all flowers become triggers
+ok 15 - quality budget never hides a trigger, even if all flowers become triggers
+  ---
+  duration_ms: 0.096363
+  type: 'test'
+  ...
+# Subtest: configuration contains editable heading, hint and positive typing durations
+ok 16 - configuration contains editable heading, hint and positive typing durations
+  ---
+  duration_ms: 0.063394
+  type: 'test'
+  ...
+# Subtest: binary asset fetch preserves bytes and reports completion
+ok 17 - binary asset fetch preserves bytes and reports completion
+  ---
+  duration_ms: 24.361473
+  type: 'test'
+  ...
+# Subtest: binary asset fetch surfaces errors instead of hanging
+ok 18 - binary asset fetch surfaces errors instead of hanging
+  ---
+  duration_ms: 0.86394
+  type: 'test'
+  ...
+# Subtest: slow binary asset fetch is cancelled
+ok 19 - slow binary asset fetch is cancelled
+  ---
+  duration_ms: 11.006026
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 85.270061

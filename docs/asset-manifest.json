@@ -1,0 +1,71 @@
+{
+  "runtime_libraries_vendored": false,
+  "assets": [
+    {
+      "path": "static/models/fallback-positions.json",
+      "bytes": 5234,
+      "sha256": "572ff973f394d5ed915b91472fe5d0a6571c6dc1cde99dd7d19be940857dfbb8"
+    },
+    {
+      "path": "static/models/flower.glb",
+      "bytes": 492476,
+      "sha256": "2beb496a3f63b448117f12951c4854b80b314831a194fcb9e32a45f867822eae",
+      "triangles": 11208,
+      "morph_meshes": 11
+    },
+    {
+      "path": "static/models/hero-flower.glb",
+      "bytes": 652884,
+      "sha256": "df3908f2f5c01a0d3f1faa3d0ea8b23315e856af012fec1bf4a79362d214a29a",
+      "triangles": 14568,
+      "morph_meshes": 16
+    },
+    {
+      "path": "static/models/tulip.glb",
+      "bytes": 301172,
+      "sha256": "ad83d84989a0c944149cd6c3a1207fbb43fe4ef7c280d7d90d3a05b114c4503f",
+      "triangles": 7032,
+      "morph_meshes": 6
+    },
+    {
+      "path": "static/textures/garden-desktop.webp",
+      "bytes": 93432,
+      "sha256": "56c9e562be592e34a57eb4959b679cee99f5c4a47bc515f6662a7bfc51a4cfe8"
+    },
+    {
+      "path": "static/textures/garden-mobile.webp",
+      "bytes": 79754,
+      "sha256": "6db275e949ca170b3bd4a569314b5e1a2ab9dc72a654d7d58a0271be93ea6e2e"
+    },
+    {
+      "path": "static/textures/grain.png",
+      "bytes": 25357,
+      "sha256": "56edc8705c398eaf2492f80dc3a53f2cd640787e574bb158ce6c454f8cda34dd"
+    },
+    {
+      "path": "static/textures/paper.webp",
+      "bytes": 14018,
+      "sha256": "32c4ac357ec35ed87fb5792a2a010bfa8beb69b591034e0d6232e90fde6e75ff"
+    },
+    {
+      "path": "static/audio/night-garden.mp3",
+      "bytes": 250096,
+      "sha256": "e5567c8cea828d54cbe45e369382fb75c9110e679f4c55d40eba969ba67fe0ab"
+    },
+    {
+      "path": "static/audio/night-garden.ogg",
+      "bytes": 160957,
+      "sha256": "3968a6f649c55547eaab459446a7c4b5f6b8072bdaad10bb46cd7208011999c1"
+    },
+    {
+      "path": "static/icons/favicon.svg",
+      "bytes": 565,
+      "sha256": "b24bab91678c65ec05e2560b8357c25d2fc07c2c4b9d3e9933f277d89e695436"
+    },
+    {
+      "path": "static/icons/sprite.svg",
+      "bytes": 1655,
+      "sha256": "8309510ecccccfc00934d02a9db0cc47d3cc9e887904752747db5be941282f25"
+    }
+  ]
+}

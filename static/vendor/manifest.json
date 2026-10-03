@@ -1,0 +1,1 @@
+{"installed":false,"three":"0.180.0","gsap":"3.13.0","note":"Run tools/vendor_dependencies.py to install local, pinned browser libraries. CDN is used until then."}

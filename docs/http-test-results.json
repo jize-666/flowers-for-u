@@ -1,0 +1,10 @@
+{
+  "status": "blocked_during_browser_navigation",
+  "checks_completed": [
+    "Python HTTP GET / returned 200 and HTML.",
+    "JavaScript MIME type was text/javascript.",
+    "GLB MIME type was model/gltf-binary."
+  ],
+  "browser_error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:8765/?debug=1",
+  "full_renderer_tested": false
+}

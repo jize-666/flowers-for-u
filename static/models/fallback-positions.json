@@ -1,0 +1,280 @@
+{
+  "desktop": {
+    "width": 1600,
+    "height": 1000,
+    "flowers": [
+      {
+        "id": "moonflower",
+        "trigger": true,
+        "x": 827.713,
+        "y": 524.757,
+        "radius": 87.98
+      },
+      {
+        "id": "ivory",
+        "trigger": true,
+        "x": 550.315,
+        "y": 611.116,
+        "radius": 73.715
+      },
+      {
+        "id": "blush",
+        "trigger": true,
+        "x": 1053.965,
+        "y": 599.551,
+        "radius": 68.931
+      },
+      {
+        "id": "d04",
+        "trigger": false,
+        "x": 709.478,
+        "y": 697.594,
+        "radius": 35.85
+      },
+      {
+        "id": "d05",
+        "trigger": false,
+        "x": 921.054,
+        "y": 739.708,
+        "radius": 29.879
+      },
+      {
+        "id": "d06",
+        "trigger": false,
+        "x": 402.156,
+        "y": 686.573,
+        "radius": 51.851
+      },
+      {
+        "id": "d07",
+        "trigger": false,
+        "x": 1210.779,
+        "y": 682.224,
+        "radius": 52.47
+      },
+      {
+        "id": "d08",
+        "trigger": false,
+        "x": 510.716,
+        "y": 624.205,
+        "radius": 34.939
+      },
+      {
+        "id": "d09",
+        "trigger": false,
+        "x": 1116.852,
+        "y": 604.264,
+        "radius": 38.203
+      },
+      {
+        "id": "d10",
+        "trigger": false,
+        "x": 335.669,
+        "y": 691.248,
+        "radius": 38.464
+      },
+      {
+        "id": "d11",
+        "trigger": false,
+        "x": 1292.695,
+        "y": 704.621,
+        "radius": 36.079
+      },
+      {
+        "id": "d12",
+        "trigger": false,
+        "x": 644.106,
+        "y": 599.528,
+        "radius": 53.861
+      },
+      {
+        "id": "d13",
+        "trigger": false,
+        "x": 887.651,
+        "y": 602.018,
+        "radius": 34.34
+      },
+      {
+        "id": "d14",
+        "trigger": false,
+        "x": 279.896,
+        "y": 781.107,
+        "radius": 36.266
+      },
+      {
+        "id": "d15",
+        "trigger": false,
+        "x": 1318.498,
+        "y": 801.133,
+        "radius": 33.932
+      },
+      {
+        "id": "d16",
+        "trigger": false,
+        "x": 450.522,
+        "y": 630.315,
+        "radius": 29.619
+      },
+      {
+        "id": "d17",
+        "trigger": false,
+        "x": 1188.716,
+        "y": 638.992,
+        "radius": 45.588
+      },
+      {
+        "id": "d18",
+        "trigger": false,
+        "x": 746.647,
+        "y": 850.798,
+        "radius": 18.662
+      },
+      {
+        "id": "d19",
+        "trigger": false,
+        "x": 1140.28,
+        "y": 837.931,
+        "radius": 20.034
+      }
+    ]
+  },
+  "mobile": {
+    "width": 900,
+    "height": 1600,
+    "flowers": [
+      {
+        "id": "moonflower",
+        "trigger": true,
+        "x": 478.714,
+        "y": 825.651,
+        "radius": 91.16
+      },
+      {
+        "id": "ivory",
+        "trigger": true,
+        "x": 191.292,
+        "y": 915.131,
+        "radius": 76.379
+      },
+      {
+        "id": "blush",
+        "trigger": true,
+        "x": 713.143,
+        "y": 903.149,
+        "radius": 71.422
+      },
+      {
+        "id": "d04",
+        "trigger": false,
+        "x": 356.207,
+        "y": 1004.735,
+        "radius": 37.146
+      },
+      {
+        "id": "d05",
+        "trigger": false,
+        "x": 575.428,
+        "y": 1048.37,
+        "radius": 30.959
+      },
+      {
+        "id": "d06",
+        "trigger": false,
+        "x": 37.778,
+        "y": 993.316,
+        "radius": 53.725
+      },
+      {
+        "id": "d07",
+        "trigger": false,
+        "x": 875.623,
+        "y": 988.809,
+        "radius": 54.366
+      },
+      {
+        "id": "d08",
+        "trigger": false,
+        "x": 150.262,
+        "y": 928.693,
+        "radius": 36.202
+      },
+      {
+        "id": "d09",
+        "trigger": false,
+        "x": 778.303,
+        "y": 908.032,
+        "radius": 39.583
+      },
+      {
+        "id": "d10",
+        "trigger": false,
+        "x": -31.111,
+        "y": 998.16,
+        "radius": 39.854
+      },
+      {
+        "id": "d11",
+        "trigger": false,
+        "x": 960.5,
+        "y": 1012.016,
+        "radius": 37.383
+      },
+      {
+        "id": "d12",
+        "trigger": false,
+        "x": 288.473,
+        "y": 903.124,
+        "radius": 55.807
+      },
+      {
+        "id": "d13",
+        "trigger": false,
+        "x": 540.818,
+        "y": 905.705,
+        "radius": 35.581
+      },
+      {
+        "id": "d14",
+        "trigger": false,
+        "x": -88.899,
+        "y": 1091.265,
+        "radius": 37.577
+      },
+      {
+        "id": "d15",
+        "trigger": false,
+        "x": 987.236,
+        "y": 1112.015,
+        "radius": 35.159
+      },
+      {
+        "id": "d16",
+        "trigger": false,
+        "x": 87.893,
+        "y": 935.024,
+        "radius": 30.689
+      },
+      {
+        "id": "d17",
+        "trigger": false,
+        "x": 852.763,
+        "y": 944.015,
+        "radius": 47.235
+      },
+      {
+        "id": "d18",
+        "trigger": false,
+        "x": 394.719,
+        "y": 1163.475,
+        "radius": 19.336
+      },
+      {
+        "id": "d19",
+        "trigger": false,
+        "x": 802.577,
+        "y": 1150.143,
+        "radius": 20.757
+      }
+    ]
+  }
+}

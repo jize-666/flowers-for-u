@@ -1,0 +1,15 @@
+{
+  "mode": "local in-memory lightweight UI (not live Three.js/GSAP)",
+  "results": [
+    "Letter stays closed at startup; audio never autoplays.",
+    "Background click does not open a letter.",
+    "Designated flower opens a letter; text starts only after paper entrance.",
+    "Read-at-once completes the exact message and hides the control.",
+    "Escape closes the letter and returns focus to its flower.",
+    "All three triggers work; closing during entrance cancels cleanly.",
+    "Keyboard activation works without starting audio.",
+    "390 x 844 touch viewport: flower tap, readable paper, skip and close work without horizontal overflow.",
+    "Reduced-motion preference shows the full message without typewriter motion."
+  ],
+  "page_errors": []
+}

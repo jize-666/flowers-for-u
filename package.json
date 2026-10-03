@@ -1,0 +1,16 @@
+{
+  "name": "flowers-for-you",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A desktop-first cinematic 3D flower garden with hidden letters.",
+  "scripts": {
+    "test": "node --test tests/core.test.js tests/loaders.test.js",
+    "check": "node tools/check_js.js",
+    "setup:vendor": "python tools/vendor_dependencies.py --from-node-modules"
+  },
+  "dependencies": {
+    "three": "0.180.0",
+    "gsap": "3.13.0"
+  }
+}

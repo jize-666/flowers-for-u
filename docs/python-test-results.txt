@@ -1,0 +1,13 @@
+test_glb_buffers_morphs_and_metadata (test_assets.AssetTests.test_glb_buffers_morphs_and_metadata) ... ok
+test_required_assets_exist (test_assets.AssetTests.test_required_assets_exist) ... ok
+test_asset_mime_types_and_missing_asset (test_server.ServerTests.test_asset_mime_types_and_missing_asset) ... skipped 'Flask is not installed; run pip install -r requirements.txt'
+test_home_and_health (test_server.ServerTests.test_home_and_health) ... skipped 'Flask is not installed; run pip install -r requirements.txt'
+test_cycle_terminates (test_vendor.VendorTests.test_cycle_terminates) ... ok
+test_matching_addon_dependencies_are_recursive (test_vendor.VendorTests.test_matching_addon_dependencies_are_recursive) ... ok
+test_missing_dependency_fails (test_vendor.VendorTests.test_missing_dependency_fails) ... ok
+test_path_traversal_fails (test_vendor.VendorTests.test_path_traversal_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.010s
+
+OK (skipped=2)
