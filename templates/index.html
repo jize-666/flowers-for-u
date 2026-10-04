@@ -4,120 +4,414 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#070e11">
-  <meta name="description" content="A small, living garden. A quiet feeling. A little note hidden between the petals.">
-  <title>Flowers For You — a little world, made with love</title>
+  <meta name="description" content="A quiet little garden, made with care. Some flowers keep a little secret.">
+  <title>Flowers For You — a quiet little place, made with care</title>
+
   <link rel="icon" type="image/svg+xml" href="/static/icons/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body class="loading">
   <div class="ambient-background" aria-hidden="true"></div>
-  <canvas id="garden-canvas" tabindex="0" aria-label="Interactive flower garden. Drag gently to look around, scroll to zoom, or use Tab to find the flowers with hidden notes."></canvas>
-  <div id="fallback-stage" class="fallback-stage" hidden aria-hidden="true">
+
+  <canvas
+    id="garden-canvas"
+    tabindex="0"
+    aria-label="Interactive flower garden. Drag gently to look around, scroll to zoom, or use Tab to find the flowers with hidden notes."
+  ></canvas>
+
+  <div
+    id="fallback-stage"
+    class="fallback-stage"
+    hidden
+    aria-hidden="true"
+  >
     <picture>
-      <source media="(max-width: 700px)" srcset="/static/textures/garden-mobile.webp">
-      <img id="fallback-image" src="/static/textures/garden-desktop.webp" alt="" draggable="false">
+      <source
+        media="(max-width: 700px)"
+        srcset="/static/textures/garden-mobile.webp"
+      >
+      <img
+        id="fallback-image"
+        src="/static/textures/garden-desktop.webp"
+        alt=""
+        draggable="false"
+      >
     </picture>
   </div>
+
   <div class="scene-vignette" aria-hidden="true"></div>
   <div class="film-grain" aria-hidden="true"></div>
-  <div id="flower-accessibility" aria-label="Flowers with hidden letters"></div>
+
+  <div
+    id="flower-accessibility"
+    aria-label="Flowers with hidden letters"
+  ></div>
 
   <header class="site-header">
-    <a class="brand" href="/" aria-label="Flowers For You, back to the garden">
-      <svg class="brand-flower" aria-hidden="true"><use href="/static/icons/sprite.svg#flower"></use></svg>
-      <span>FLOWERS <span class="brand-for">FOR</span> YOU</span>
+    <a
+      class="brand"
+      href="/"
+      aria-label="Flowers For You, back to the garden"
+    >
+      <svg class="brand-flower" aria-hidden="true">
+        <use href="/static/icons/sprite.svg#flower"></use>
+      </svg>
+
+      <span>
+        FLOWERS <span class="brand-for">FOR</span> YOU
+      </span>
     </a>
-    <div class="header-note"><span class="status-dot"></span>A LITTLE WORLD, MADE WITH LOVE</div>
+
+    <div class="header-note">
+      <span class="status-dot"></span>
+      A LITTLE WORLD, MADE WITH CARE
+    </div>
   </header>
 
   <main class="hero" id="hero">
-    <p class="hero-eyebrow">SOMETHING SMALL. SOMETHING JUST FOR YOU.</p>
-    <h1><span class="hero-word">Flowers,</span><em class="hero-word">for you.</em></h1>
-    <p class="hero-subtitle">Some things are better left blooming.</p>
-    <span class="hero-rule" aria-hidden="true"></span>
+    <p class="hero-eyebrow">
+      SOMETHING SMALL. SOMETHING MADE WITH CARE.
+    </p>
+
+    <h1 class="hero-title">
+      <span class="hero-word">A quiet little place,</span>
+      <em class="hero-word">made for you.</em>
+    </h1>
+
+    <p class="hero-subtitle">
+      Built gently, meant to be felt.
+    </p>
+
+    <span
+      class="hero-rule"
+      aria-hidden="true"
+    ></span>
   </main>
 
-  <div class="garden-hint" id="garden-hint">
-    <svg aria-hidden="true"><use href="/static/icons/sprite.svg#sparkle"></use></svg>
+  <div
+    class="garden-hint"
+    id="garden-hint"
+  >
+    <svg aria-hidden="true">
+      <use href="/static/icons/sprite.svg#sparkle"></use>
+    </svg>
+
     <span>Some flowers keep a little secret.</span>
   </div>
-  <button class="skip-intro" id="skip-intro" type="button" hidden>Let them bloom <span aria-hidden="true">↗</span></button>
+
+  <button
+    class="skip-intro"
+    id="skip-intro"
+    type="button"
+    hidden
+  >
+    Let them bloom
+  </button>
 
   <footer class="site-footer">
-    <div class="footer-dedication"><span class="tiny-line" aria-hidden="true"></span> A MOMENT, JUST FOR YOU</div>
-    <div class="garden-controls" aria-label="Garden controls">
-      <button class="icon-button" id="replay-intro" type="button" aria-label="Watch the flowers grow again" title="Watch it bloom again" disabled>
-        <svg aria-hidden="true"><use href="/static/icons/sprite.svg#replay"></use></svg>
+    <div class="footer-dedication">
+      <span
+        class="tiny-line"
+        aria-hidden="true"
+      ></span>
+
+      A MOMENT, JUST FOR YOU
+    </div>
+
+    <div
+      class="garden-controls"
+      aria-label="Garden controls"
+    >
+      <button
+        class="icon-button"
+        id="replay-intro"
+        type="button"
+        aria-label="Watch the flowers grow again"
+        title="Watch it bloom again"
+        disabled
+      >
+        <svg aria-hidden="true">
+          <use href="/static/icons/sprite.svg#replay"></use>
+        </svg>
       </button>
-      <button class="icon-button" id="motion-toggle" type="button" aria-label="Pause garden motion" aria-pressed="false" title="Pause motion" disabled>
-        <svg class="pause-icon" aria-hidden="true"><use href="/static/icons/sprite.svg#pause"></use></svg>
-        <svg class="play-icon" aria-hidden="true"><use href="/static/icons/sprite.svg#play"></use></svg>
+
+      <button
+        class="icon-button"
+        id="motion-toggle"
+        type="button"
+        aria-label="Pause garden motion"
+        aria-pressed="false"
+        title="Pause motion"
+        disabled
+      >
+        <svg
+          class="pause-icon"
+          aria-hidden="true"
+        >
+          <use href="/static/icons/sprite.svg#pause"></use>
+        </svg>
+
+        <svg
+          class="play-icon"
+          aria-hidden="true"
+        >
+          <use href="/static/icons/sprite.svg#play"></use>
+        </svg>
       </button>
-      <button class="icon-button" id="sound-toggle" type="button" aria-label="Enable garden ambience" aria-pressed="false" title="Sound on / off">
-        <svg aria-hidden="true"><use href="/static/icons/sprite.svg#sound"></use></svg>
-        <span class="sound-slash" aria-hidden="true"></span>
+
+      <button
+        class="icon-button"
+        id="sound-toggle"
+        type="button"
+        aria-label="Enable garden ambience"
+        aria-pressed="false"
+        title="Sound on / off"
+      >
+        <svg aria-hidden="true">
+          <use href="/static/icons/sprite.svg#sound"></use>
+        </svg>
+
+        <span
+          class="sound-slash"
+          aria-hidden="true"
+        ></span>
       </button>
-      <span class="control-divider" aria-hidden="true"></span>
-      <label class="quality-control" title="Rendering quality">
-        <span class="sr-only">Rendering quality</span>
-        <svg aria-hidden="true"><use href="/static/icons/sprite.svg#settings"></use></svg>
-        <select id="quality-select" aria-label="Rendering quality">
+
+      <span
+        class="control-divider"
+        aria-hidden="true"
+      ></span>
+
+      <label
+        class="quality-control"
+        title="Rendering quality"
+      >
+        <span class="sr-only">
+          Rendering quality
+        </span>
+
+        <svg aria-hidden="true">
+          <use href="/static/icons/sprite.svg#settings"></use>
+        </svg>
+
+        <select
+          id="quality-select"
+          aria-label="Rendering quality"
+        >
           <option value="auto">Auto</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Gentle</option>
         </select>
-        <span class="select-chevron" aria-hidden="true">⌄</span>
+
+        <span
+          class="select-chevron"
+          aria-hidden="true"
+        >
+          ⌄
+        </span>
       </label>
     </div>
   </footer>
 
-  <div id="cursor-glow" aria-hidden="true"></div>
-  <div id="view-notice" class="view-notice" hidden></div>
-  <p id="status-announcement" class="sr-only" aria-live="polite" role="status"></p>
+  <div
+    id="cursor-glow"
+    aria-hidden="true"
+  ></div>
 
-  <section id="loading-screen" class="loading-screen" aria-label="Preparing the garden">
-    <svg class="loading-sprout" viewBox="0 0 80 110" fill="none" aria-hidden="true">
-      <path d="M40 96V49M40 77C19 79 15 63 17 57C33 54 40 67 40 77ZM40 64C57 66 65 52 62 44C48 43 41 55 40 64Z" stroke="currentColor" stroke-width="1.15"/>
-      <path class="sprout-bloom" d="M40 49C20 49 21 28 30 26C25 9 44 8 44 24C61 12 69 31 52 38C65 48 49 62 40 49Z" stroke="currentColor" stroke-width="1.15"/>
-      <circle cx="42" cy="37" r="4" stroke="currentColor"/>
+  <div
+    id="view-notice"
+    class="view-notice"
+    hidden
+  ></div>
+
+  <p
+    id="status-announcement"
+    class="sr-only"
+    aria-live="polite"
+    role="status"
+  ></p>
+
+  <section
+    id="loading-screen"
+    class="loading-screen"
+    aria-label="Preparing the garden"
+  >
+    <svg
+      class="loading-sprout"
+      viewBox="0 0 80 110"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M40 96V49M40 77C19 79 15 63 17 57C33 54 40 67 40 77ZM40 64C57 66 65 52 62 44C48 43 41 55 40 64Z"
+        stroke="currentColor"
+        stroke-width="1.15"
+      ></path>
+
+      <path
+        class="sprout-bloom"
+        d="M40 49C20 49 21 28 30 26C25 9 44 8 44 24C61 12 69 31 52 38C65 48 49 62 40 49Z"
+        stroke="currentColor"
+        stroke-width="1.15"
+      ></path>
+
+      <circle
+        cx="42"
+        cy="37"
+        r="4"
+        stroke="currentColor"
+      ></circle>
     </svg>
-    <p class="loading-title">Growing a little something.</p>
-    <p class="loading-caption">GOOD THINGS TAKE A MOMENT</p>
-    <progress id="asset-progress" max="1" value="0" aria-label="Loading flower assets"></progress>
+
+    <p class="loading-title">
+      Growing a little something.
+    </p>
+
+    <p class="loading-caption">
+      GOOD THINGS TAKE A MOMENT
+    </p>
+
+    <progress
+      id="asset-progress"
+      max="1"
+      value="0"
+      aria-label="Loading flower assets"
+    ></progress>
   </section>
 
-  <dialog id="letter-dialog" class="letter-dialog" aria-labelledby="letter-title" aria-describedby="letter-full-message">
-    <div class="letter-backdrop" aria-hidden="true"></div>
+  <dialog
+    id="letter-dialog"
+    class="letter-dialog"
+    aria-labelledby="letter-title"
+    aria-describedby="letter-full-message"
+  >
+    <div
+      class="letter-backdrop"
+      aria-hidden="true"
+    ></div>
+
     <article class="letter-paper">
-      <div class="paper-inner-border" aria-hidden="true"></div>
-      <button class="letter-close" id="close-letter" type="button" aria-label="Close the letter" autofocus>
-        <svg aria-hidden="true"><use href="/static/icons/sprite.svg#close"></use></svg>
+      <div
+        class="paper-inner-border"
+        aria-hidden="true"
+      ></div>
+
+      <button
+        class="letter-close"
+        id="close-letter"
+        type="button"
+        aria-label="Close the letter"
+        autofocus
+      >
+        <svg aria-hidden="true">
+          <use href="/static/icons/sprite.svg#close"></use>
+        </svg>
       </button>
+
       <div class="letter-heading">
-        <svg class="letter-flower" aria-hidden="true"><use href="/static/icons/sprite.svg#stem-flower"></use></svg>
-        <p class="letter-eyebrow">YOU FOUND A LITTLE PIECE OF MY HEART</p>
-        <h2 id="letter-title">Between the petals</h2>
-        <div class="letter-heading-line" aria-hidden="true"></div>
+        <svg
+          class="letter-flower"
+          aria-hidden="true"
+        >
+          <use href="/static/icons/sprite.svg#stem-flower"></use>
+        </svg>
+
+        <p class="letter-eyebrow">
+          YOU FOUND A LITTLE PIECE OF MY HEART
+        </p>
+
+        <h2 id="letter-title">
+          Between the petals
+        </h2>
+
+        <div
+          class="letter-heading-line"
+          aria-hidden="true"
+        ></div>
       </div>
+
       <div class="letter-copy">
-        <p class="letter-layout" aria-hidden="true"></p>
-        <p class="letter-visual" aria-hidden="true"><span id="typed-message"></span><span class="typing-cursor">|</span></p>
-        <p id="letter-full-message" class="sr-only"></p>
+        <p
+          class="letter-layout"
+          aria-hidden="true"
+        ></p>
+
+        <p
+          class="letter-visual"
+          aria-hidden="true"
+        ><span id="typed-message"></span><span class="typing-cursor" aria-hidden="true"></span></p>
+
+        <p
+          id="letter-full-message"
+          class="sr-only"
+        ></p>
       </div>
-      <p class="letter-signature">For you, always.</p>
+
+      <p class="letter-signature">
+        Always yours.
+      </p>
+
       <div class="letter-bottom">
-        <span class="letter-location">FOUND AMONG THE FLOWERS</span>
-        <span class="paper-seal" aria-hidden="true"><svg><use href="/static/icons/sprite.svg#flower"></use></svg></span>
+        <span class="letter-location">
+          FOUND AMONG THE FLOWERS
+        </span>
+
+        <span
+          class="paper-seal"
+          aria-hidden="true"
+        >
+          <svg>
+            <use href="/static/icons/sprite.svg#flower"></use>
+          </svg>
+        </span>
       </div>
-      <button class="skip-typing" id="skip-typing" type="button" disabled>Read at once <span aria-hidden="true">↗</span></button>
+
+      <button
+        class="skip-typing"
+        id="skip-typing"
+        type="button"
+        disabled
+      >
+        Read at once
+        <span aria-hidden="true">↗</span>
+      </button>
     </article>
   </dialog>
 
   <noscript>
-    <style>.loading-screen{display:none!important}.no-script{position:fixed;inset:30% 12%;z-index:30;color:#eee4d8;text-align:center;font:22px/1.7 Georgia,serif}</style>
-    <p class="no-script">This little garden needs JavaScript to grow. Enable JavaScript, then return to the flowers.</p>
+    <style>
+      .loading-screen {
+        display: none !important;
+      }
+
+      .no-script {
+        position: fixed;
+        inset: 30% 12%;
+        z-index: 30;
+        color: #eee4d8;
+        text-align: center;
+        font: 22px/1.7 Georgia, serif;
+      }
+    </style>
+
+    <p class="no-script">
+      This little garden needs JavaScript to grow. Enable JavaScript, then return to the flowers.
+    </p>
   </noscript>
-  <script type="module" src="/static/js/bootstrap.js"></script>
+
+  <script
+    type="module"
+    src="/static/js/bootstrap.js"
+  ></script>
 </body>
 </html>

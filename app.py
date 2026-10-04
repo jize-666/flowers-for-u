@@ -9,6 +9,8 @@ mimetypes.add_type("text/javascript", ".js")
 mimetypes.add_type("model/gltf-binary", ".glb")
 mimetypes.add_type("audio/ogg", ".ogg")
 app = Flask(__name__)
+from opening_routes import install_opening
+install_opening(app)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
 

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b100f">
+  <meta name="description" content="Before the flowers, there was a story. The unabridged prologue to Flowers For You.">
+  <title>Before the flowers | Flowers For You</title>
+  <link rel="icon" type="image/svg+xml" href="/static/icons/opening-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/opening.css">
+</head>
+<body class="opening-page" data-state="cover">
+  <div class="room-light" aria-hidden="true"></div>
+  <div class="opening-dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="opening-header">
+    <a class="opening-brand garden-link" href="/?garden=1" aria-label="Go to the Flowers For You garden">
+      <img src="/static/icons/opening-mark.svg" width="30" height="38" alt="">
+      <span>FLOWERS <span class="brand-muted">FOR</span> YOU</span>
+    </a>
+    <span class="edition-label">THE PROLOGUE <span aria-hidden="true">/</span> VOL. 01</span>
+    <a class="text-link garden-link" id="garden-top" href="/?garden=1">Enter the garden</a>
+  </header>
+
+  <main id="opening-main" class="opening-main">
+    <aside class="side-note" aria-hidden="true"><span>THE THINGS WE NEVER SAY</span><i></i><span>01</span></aside>
+    <article class="opening-paper" aria-labelledby="opening-title">
+      <div class="paper-border" aria-hidden="true"></div>
+      <div class="paper-grain" aria-hidden="true"></div>
+      <div class="paper-header">
+        <span class="paper-label">A LETTER, BEFORE THE GARDEN</span>
+        <img src="/static/icons/opening-mark.svg" width="22" height="32" alt="" class="paper-emblem">
+        <span class="paper-folio" id="paper-folio">PROLOGUE</span>
+      </div>
+
+      <section class="opening-cover" id="opening-cover">
+        <p class="small-caps cover-pretitle">SOME THINGS BEGIN IN SILENCE</p>
+        <h1 id="opening-title">Before the flowers.</h1>
+        <p class="cover-subtitle" id="cover-subtitle">A story, quietly told.</p>
+        <span class="cover-rule" aria-hidden="true"></span>
+        <p class="cover-note">Before a small world was made for someone,<br>there was a boy learning to begin again.</p>
+        <div class="begin-actions">
+          <button class="begin-button" id="begin-opening" type="button" disabled>Preparing the pages</button>
+          <button class="resume-button" id="resume-opening" type="button" hidden>Continue reading</button>
+        </div>
+        <label class="sound-choice"><input id="sound-choice" type="checkbox" checked><span>With soft ambience</span></label>
+        <p class="cover-duration" id="cover-duration">The complete story, one passage at a time.</p>
+      </section>
+
+      <section class="opening-stage" id="opening-stage" hidden aria-label="Cinematic story">
+        <div class="chapter-heading"><span class="chapter-number" id="chapter-number">I</span><span class="chapter-line" aria-hidden="true"></span><span id="chapter-title">The years before</span></div>
+        <div class="passage-area" id="passage-area" aria-hidden="true"><p id="passage" class="passage"></p></div>
+        <p class="sr-only" id="accessible-passage"></p>
+        <p class="pause-label" id="pause-label" hidden>Take your time. The story will wait.</p>
+      </section>
+
+      <section class="opening-end" id="opening-end" hidden aria-labelledby="end-title">
+        <img src="/static/icons/opening-mark.svg" width="42" height="62" alt="" class="end-flower">
+        <p class="small-caps">THE PROLOGUE ENDS. THE GARDEN BEGINS.</p>
+        <h2 id="end-title">A quiet little place,<br><em>made for you.</em></h2>
+        <p class="end-subtitle">Built gently, meant to be felt.</p>
+        <a class="begin-button garden-link" href="/?garden=1">Enter the garden</a>
+        <button class="text-link" id="replay-opening" type="button">Read it again</button>
+      </section>
+
+      <div class="paper-footer"><span>WRITTEN IN THE QUIET</span><span class="paper-footer-middle" id="paper-footer-middle">A beginning, not an explanation.</span><span class="paper-monogram" aria-hidden="true">f / y</span></div>
+    </article>
+    <aside class="side-note side-note-right" aria-hidden="true"><span>A SMALL WORLD, MADE WITH CARE</span><i></i></aside>
+  </main>
+
+  <footer class="opening-footer">
+    <div class="reading-navigation">
+      <label class="chapter-select-label"><span class="sr-only">Choose a chapter</span><select id="chapter-select" disabled><option value="0">Chapters</option></select><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></label>
+      <button class="text-link" id="read-all" type="button">Read the full letter</button>
+    </div>
+    <div class="playback-controls" aria-label="Story playback" role="group">
+      <button class="control-button" id="previous-passage" type="button" aria-label="Previous passage" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14m12-13-9 6 9 6Z"/></svg></button>
+      <button class="control-button play-control" id="play-pause" type="button" aria-label="Pause story" disabled><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg></button>
+      <button class="control-button" id="next-passage" type="button" aria-label="Next passage" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6Z"/></svg></button>
+    </div>
+    <div class="audio-controls">
+      <label class="speed-label"><span class="sr-only">Reading speed</span><select id="reading-speed"><option value="0.75">0.75x</option><option value="1" selected>1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option></select></label>
+      <button class="control-button" id="audio-toggle" type="button" aria-label="Mute ambience" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Zm4 4a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/><path class="audio-slash" d="M3 3l18 18"/></svg></button>
+      <label class="volume-label"><span class="sr-only">Ambience volume</span><input id="audio-volume" type="range" min="0" max="100" value="30" aria-label="Ambience volume"></label>
+    </div>
+    <div class="progress-row"><span id="elapsed-time">00:00</span><div class="opening-progress" role="progressbar" aria-label="Story progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div><span id="total-time">00:00</span></div>
+    <p class="engine-status" id="engine-status" aria-live="polite">Preparing animation</p>
+  </footer>
+
+  <dialog class="transcript-dialog" id="transcript-dialog" aria-labelledby="transcript-title">
+    <div class="transcript-top"><div><p class="small-caps">FLOWERS FOR YOU / THE COMPLETE PROLOGUE</p><h2 id="transcript-title">Before the flowers.</h2></div><button id="close-transcript" class="control-button" type="button" aria-label="Close full letter" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <div id="transcript-content" class="transcript-content"></div>
+  </dialog>
+  <p id="opening-announcement" class="sr-only" role="status" aria-live="polite"></p>
+  <noscript><div class="no-script">The animated prologue needs JavaScript. <a href="/static/text/opening-story.txt">Read the complete story here.</a></div></noscript>
+  <script type="module" src="/static/js/opening.js"></script>
+</body>
+</html>
