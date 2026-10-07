@@ -1,3 +1,4 @@
+// COLLAPSE INTEGRATION: existing garden retained; transition ownership and cleanup added.
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { fetchBinaryAsset } from "./loaders.js";
@@ -277,9 +278,14 @@ export class FlowerGarden {
   }
 
   dispose() {
+    if (this.disposed) return;
+    this.disposed = true;
     Object.values(this.templates).forEach(template => template.geometry.dispose());
     this.flowers.forEach(flower => { flower.mesh.material.dispose(); this.scene.remove(flower.root); });
     this.pickGeometry.dispose();
     this.pickMaterial.dispose();
+    this.flowers.length = 0;
+    this.pickTargets.length = 0;
+    this.templates = {};
   }
 }

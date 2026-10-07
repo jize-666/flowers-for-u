@@ -5,7 +5,7 @@
   "type": "module",
   "description": "A desktop-first cinematic 3D flower garden with hidden letters.",
   "scripts": {
-    "test": "node --test tests/core.test.js tests/loaders.test.js",
+    "test": "node --test tests/*.test.js",
     "check": "node tools/check_js.js",
     "setup:vendor": "python tools/vendor_dependencies.py --from-node-modules"
   },

@@ -1,3 +1,4 @@
+// COLLAPSE INTEGRATION: existing garden retained; transition ownership and cleanup added.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
@@ -6,6 +7,7 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { CONFIG, QUALITY } from "./config.js";
 import { damp } from "./utils.js";
+import { RenderBudget } from "./render-budget.js";
 
 export class GardenScene {
   constructor(canvas, quality, reducedMotion) {
@@ -52,6 +54,7 @@ export class GardenScene {
     this.resize();
     this.controls.saveState();
     this.saved = null;
+    this.budget = new RenderBudget();
   }
 
   addLights() {
@@ -88,9 +91,29 @@ export class GardenScene {
     this.renderer.setSize(width, height, false);
     this.composer.setPixelRatio(this.renderer.getPixelRatio());
     this.composer.setSize(width, height);
+    this.resizeBloom();
+  }
+
+  resizeBloom() {
+    // COLLAPSE INTEGRATION: retain native garden bloom resolution until commit.
+    const scale=this.cinematic?CONFIG.performance.bloomByQuality[this.quality]*(this.budget?.scale??1):1,dpr=this.renderer.getPixelRatio();
+    // Composer output/scene DPR stays intact. Only bloom's internal mip chain is resized.
+    this.bloom.setSize(Math.max(1,Math.round(innerWidth*dpr*scale)),Math.max(1,Math.round(innerHeight*dpr*scale)));
+    this.bloomScale=scale;
+  }
+
+  observeFrame(ms,now,state) {
+    if(this.budget.observe(ms,now,state,!document.hidden)!==null&&this.bloom.enabled)this.resizeBloom();
+  }
+
+  performanceSnapshot() {
+    return {quality:this.quality,sceneDpr:this.renderer.getPixelRatio(),bloomEnabled:this.bloom.enabled,bloomScale:this.bloomScale,
+      bloomTarget:[this.bloom.renderTargetBright.width,this.bloom.renderTargetBright.height],resolutionHistory:[...this.budget.history],
+      memory:{...this.renderer.info.memory},render:{...this.renderer.info.render}};
   }
 
   update(delta, motionEnabled) {
+    if (this.cinematic) { this.scene.updateMatrixWorld(); return; }
     if (this.controls.enabled) this.controls.update(delta);
     const active = motionEnabled && !this.reducedMotion && matchMedia("(pointer: fine)").matches;
     const strength = active ? CONFIG.camera.parallax * this.parallax.value : 0;
@@ -119,12 +142,14 @@ export class GardenScene {
     timeline.to(this.parallax, { value: 1, duration }, 0);
   }
 
-  render(delta) { this.composer.render(delta); }
+  render(delta) { this.renderer.info.autoReset=false;this.renderer.info.reset();this.composer.render(delta); }
 
   dispose() {
+    if(this.disposed)return;this.disposed=true;
     this.controls.dispose();
-    this.bloom.dispose();
+    this.composer.passes.forEach(pass=>pass.dispose?.());
     this.composer.dispose();
+    this.renderer.renderLists.dispose();
     this.renderer.dispose();
   }
 }

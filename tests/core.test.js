@@ -104,5 +104,5 @@ test("quality budget never hides a trigger, even if all flowers become triggers"
 
 test("configuration contains editable heading, hint and positive typing durations", () => {
   assert.ok(CONTENT.heading && CONTENT.headingAccent && CONTENT.hint);
-  assert.ok(CONFIG.letter.characterSeconds > 0 && CONFIG.letter.openDuration > 0);
+  assert.ok(CONFIG.letter.typing.baseMs > 0 && CONFIG.letter.openDuration > 0);
 });

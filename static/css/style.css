@@ -123,6 +123,7 @@ svg {
   cursor: grabbing;
 }
 
+/* COLLAPSE INTEGRATION: default color preserved; cinematic may tween this property. */
 .scene-vignette {
   position: fixed;
   inset: 0;
@@ -131,17 +132,17 @@ svg {
   background:
     linear-gradient(
       to bottom,
-      rgba(7, 14, 17, .16),
+      rgba(var(--vignette-rgb, 7, 14, 17), .16),
       transparent 30%,
       transparent 68%,
-      rgba(7, 14, 17, .2) 82%,
-      #070e11 99%
+      rgba(var(--vignette-rgb, 7, 14, 17), .2) 82%,
+      rgb(var(--vignette-rgb, 7, 14, 17)) 99%
     ),
     radial-gradient(
       ellipse at 50% 60%,
       transparent 30%,
-      rgba(7, 14, 17, .2) 70%,
-      rgba(7, 14, 17, .75) 100%
+      rgba(var(--vignette-rgb, 7, 14, 17), .2) 70%,
+      rgba(var(--vignette-rgb, 7, 14, 17), .75) 100%
     );
 }
 

@@ -1,0 +1,659 @@
+TAP version 13
+# Subtest: A15: four audio needs share cinematic boundaries with overlapping tails and one loop
+ok 1 - A15: four audio needs share cinematic boundaries with overlapping tails and one loop
+  ---
+  duration_ms: 2.16007
+  type: 'test'
+  ...
+# Subtest: A15: conservative peak bound for simultaneous cues plus existing garden is below full scale
+ok 2 - A15: conservative peak bound for simultaneous cues plus existing garden is below full scale
+  ---
+  duration_ms: 4.014106
+  type: 'test'
+  ...
+# Subtest: A15: decoded overrides have headroom; silent and nonfinite critical audio fail closed
+ok 3 - A15: decoded overrides have headroom; silent and nonfinite critical audio fail closed
+  ---
+  duration_ms: 0.527236
+  type: 'test'
+  ...
+# Subtest: A15: synthesis Worker serializes jobs, drops old replies and releases after prewarm
+ok 4 - A15: synthesis Worker serializes jobs, drops old replies and releases after prewarm
+  ---
+  duration_ms: 1.74966
+  type: 'test'
+  ...
+# Subtest: A15: synthesis errors and missing Worker fail closed without a hidden fallback
+ok 5 - A15: synthesis errors and missing Worker fail closed without a hidden fallback
+  ---
+  duration_ms: 0.440625
+  type: 'test'
+  ...
+# Subtest: A15: cancelled/timeout preparation settles pending job and terminates Worker
+ok 6 - A15: cancelled/timeout preparation settles pending job and terminates Worker
+  ---
+  duration_ms: 6.01738
+  type: 'test'
+  ...
+# Subtest: A5/A6: no initial playback/context; sound activates one context and actual decode gates readiness
+ok 7 - A5/A6: no initial playback/context; sound activates one context and actual decode gates readiness
+  ---
+  duration_ms: 944.561526
+  type: 'test'
+  ...
+# Subtest: A15: reveal and loop share the activated context; loop starts once and uses a gain ramp
+ok 8 - A15: reveal and loop share the activated context; loop starts once and uses a gain ramp
+  ---
+  duration_ms: 861.6331
+  type: 'test'
+  ...
+# Subtest: A5: decoder failure blocks commit readiness and surfaces audio status
+ok 9 - A5: decoder failure blocks commit readiness and surfaces audio status
+  ---
+  duration_ms: 32.0025
+  type: 'test'
+  ...
+# Subtest: A15: destructive cue cannot play before commit; mute/unmute never restarts garden after collapse
+ok 10 - A15: destructive cue cannot play before commit; mute/unmute never restarts garden after collapse
+  ---
+  duration_ms: 890.034363
+  type: 'test'
+  ...
+# Subtest: A15: scheduled boundaries use one audio clock; ended cues release buffers and graph nodes
+ok 11 - A15: scheduled boundaries use one audio clock; ended cues release buffers and graph nodes
+  ---
+  duration_ms: 880.936134
+  type: 'test'
+  ...
+# Subtest: A15: fallback AudioParam cancellation continues from the interpolated gain, not a stale value
+ok 12 - A15: fallback AudioParam cancellation continues from the interpolated gain, not a stale value
+  ---
+  duration_ms: 916.725969
+  type: 'test'
+  ...
+# Subtest: A15: visibility suspends/resumes one context without re-scheduling cues or restarting garden
+ok 13 - A15: visibility suspends/resumes one context without re-scheduling cues or restarting garden
+  ---
+  duration_ms: 839.415431
+  type: 'test'
+  ...
+# Subtest: A15: one scheduling failure does not stop remaining cues or undo committed audio state
+ok 14 - A15: one scheduling failure does not stop remaining cues or undo committed audio state
+  ---
+  duration_ms: 859.044755
+  type: 'test'
+  ...
+# Subtest: A15: garden media is reclaimed after audio-clock fade, not before a suspended fade finishes
+ok 15 - A15: garden media is reclaimed after audio-clock fade, not before a suspended fade finishes
+  ---
+  duration_ms: 890.940621
+  type: 'test'
+  ...
+# Subtest: A7/A11: real GSAP executes one clock, fracture then disposal/void then handoff
+ok 16 - A7/A11: real GSAP executes one clock, fracture then disposal/void then handoff
+  ---
+  duration_ms: 2.371739
+  type: 'test'
+  ...
+# Subtest: A4/A12: same real GSAP timeline enters arrival at 34.5s and interaction at 38.5s once
+ok 17 - A4/A12: same real GSAP timeline enters arrival at 34.5s and interaction at 38.5s once
+  ---
+  duration_ms: 0.960249
+  type: 'test'
+  ...
+# Subtest: A7: exact default overlap, five-second expansion and 34.5s through void
+ok 18 - A7: exact default overlap, five-second expansion and 34.5s through void
+  ---
+  duration_ms: 0.253974
+  type: 'test'
+  ...
+# Subtest: A7: each beat starts at zero without an early collapse or early destruction
+ok 19 - A7: each beat starts at zero without an early collapse or early destruction
+  ---
+  duration_ms: 0.478732
+  type: 'test'
+  ...
+# Subtest: A7-A11: camera path is position/velocity continuous across void boundary and never teleports
+ok 20 - A7-A11: camera path is position/velocity continuous across void boundary and never teleports
+  ---
+  duration_ms: 7.951879
+  type: 'test'
+  ...
+# Subtest: A8: palette is fixed and quality changes reduce only secondary counts
+ok 21 - A8: palette is fixed and quality changes reduce only secondary counts
+  ---
+  duration_ms: 0.126952
+  type: 'test'
+  ...
+# Subtest: A10: CPU freeze bake preserves grown GLB positions and authored closed morph
+ok 22 - A10: CPU freeze bake preserves grown GLB positions and authored closed morph
+  ---
+  duration_ms: 0.196697
+  type: 'test'
+  ...
+# Subtest: A10: real bundled GLB triangles retain provenance and split into structural fragments without loss
+ok 23 - A10: real bundled GLB triangles retain provenance and split into structural fragments without loss
+  ---
+  duration_ms: 28.206121
+  type: 'test'
+  ...
+# Subtest: A16: metric windows exclude intro/final pull/hidden frames and preserve actual intervals
+ok 24 - A16: metric windows exclude intro/final pull/hidden frames and preserve actual intervals
+  ---
+  duration_ms: 0.405953
+  type: 'test'
+  ...
+# Subtest: only three specific flowers are letter triggers
+ok 25 - only three specific flowers are letter triggers
+  ---
+  duration_ms: 0.120922
+  type: 'test'
+  ...
+# Subtest: every quality tier retains all interactive flowers
+ok 26 - every quality tier retains all interactive flowers
+  ---
+  duration_ms: 0.098539
+  type: 'test'
+  ...
+# Subtest: growth and bloom use positive, overlapping durations
+ok 27 - growth and bloom use positive, overlapping durations
+  ---
+  duration_ms: 0.055203
+  type: 'test'
+  ...
+# Subtest: the approved message is preserved
+ok 28 - the approved message is preserved
+  ---
+  duration_ms: 0.053832
+  type: 'test'
+  ...
+# Subtest: typing is monotonic, begins empty and ends with the complete text
+ok 29 - typing is monotonic, begins empty and ends with the complete text
+  ---
+  duration_ms: 8.650072
+  type: 'test'
+  ...
+# Subtest: typing preserves grapheme clusters
+ok 30 - typing preserves grapheme clusters
+  ---
+  duration_ms: 0.13921
+  type: 'test'
+  ...
+# Subtest: punctuation introduces a reading pause
+ok 31 - punctuation introduces a reading pause
+  ---
+  duration_ms: 0.107482
+  type: 'test'
+  ...
+# Subtest: a click is not a drag, long press, or another pointer
+ok 32 - a click is not a drag, long press, or another pointer
+  ---
+  duration_ms: 0.350008
+  type: 'test'
+  ...
+# Subtest: wind is smooth, finite, and anchored when growth is zero
+ok 33 - wind is smooth, finite, and anchored when growth is zero
+  ---
+  duration_ms: 0.149575
+  type: 'test'
+  ...
+# Subtest: damping is independent of frame rate
+ok 34 - damping is independent of frame rate
+  ---
+  duration_ms: 0.191599
+  type: 'test'
+  ...
+# Subtest: random scene layout helpers are deterministic
+ok 35 - random scene layout helpers are deterministic
+  ---
+  duration_ms: 0.209285
+  type: 'test'
+  ...
+# Subtest: a drag returning to its starting point is never a click
+ok 36 - a drag returning to its starting point is never a click
+  ---
+  duration_ms: 0.074051
+  type: 'test'
+  ...
+# Subtest: a negative pointer duration is rejected
+ok 37 - a negative pointer duration is rejected
+  ---
+  duration_ms: 0.051537
+  type: 'test'
+  ...
+# Subtest: quality retains triggers after the user reorders flowers
+ok 38 - quality retains triggers after the user reorders flowers
+  ---
+  duration_ms: 0.148434
+  type: 'test'
+  ...
+# Subtest: quality budget never hides a trigger, even if all flowers become triggers
+ok 39 - quality budget never hides a trigger, even if all flowers become triggers
+  ---
+  duration_ms: 0.122195
+  type: 'test'
+  ...
+# Subtest: configuration contains editable heading, hint and positive typing durations
+ok 40 - configuration contains editable heading, hint and positive typing durations
+  ---
+  duration_ms: 0.058258
+  type: 'test'
+  ...
+# Subtest: A4/A16: inference continues through all five states; garden trigger ticks only in garden
+ok 41 - A4/A16: inference continues through all five states; garden trigger ticks only in garden
+  ---
+  duration_ms: 0.858665
+  type: 'test'
+  ...
+# Subtest: A4: exactly five states, no skip/reverse, single commit
+ok 42 - A4: exactly five states, no skip/reverse, single commit
+  ---
+  duration_ms: 0.111398
+  type: 'test'
+  ...
+# Subtest: A5: readiness, camera, loading/time and bare fist cannot commit
+ok 43 - A5: readiness, camera, loading/time and bare fist cannot commit
+  ---
+  duration_ms: 0.439233
+  type: 'test'
+  ...
+# Subtest: A5: 999ms is insufficient; exactly 1000ms commits once
+ok 44 - A5: 999ms is insufficient; exactly 1000ms commits once
+  ---
+  duration_ms: 0.126251
+  type: 'test'
+  ...
+# Subtest: A5: 24, 30, 60Hz and irregular timestamps use elapsed time
+ok 45 - A5: 24, 30, 60Hz and irregular timestamps use elapsed time
+  ---
+  duration_ms: 0.327945
+  type: 'test'
+  ...
+# Subtest: A5: all four readiness gates independently block and cancel
+ok 46 - A5: all four readiness gates independently block and cancel
+  ---
+  duration_ms: 0.289377
+  type: 'test'
+  ...
+# Subtest: A5: an interrupted fist resets duration entirely
+ok 47 - A5: an interrupted fist resets duration entirely
+  ---
+  duration_ms: 0.37726
+  type: 'test'
+  ...
+# Subtest: A5: sample older than 120ms cancels; 120ms is still fresh
+ok 48 - A5: sample older than 120ms cancels; 120ms is still fresh
+  ---
+  duration_ms: 0.138219
+  type: 'test'
+  ...
+# Subtest: A5: fresh result after a >120ms sampling gap cannot bridge hold
+ok 49 - A5: fresh result after a >120ms sampling gap cannot bridge hold
+  ---
+  duration_ms: 0.080611
+  type: 'test'
+  ...
+# Subtest: A5: loss watchdog resets arming even without another result
+ok 50 - A5: loss watchdog resets arming even without another result
+  ---
+  duration_ms: 0.057366
+  type: 'test'
+  ...
+# Subtest: A5: duplicate, out-of-order, future and NaN timestamps cannot add hold
+ok 51 - A5: duplicate, out-of-order, future and NaN timestamps cannot add hold
+  ---
+  duration_ms: 0.109365
+  type: 'test'
+  ...
+# Subtest: A5: another hand cannot inherit the armed hold
+ok 52 - A5: another hand cannot inherit the armed hold
+  ---
+  duration_ms: 0.060792
+  type: 'test'
+  ...
+# Subtest: A5: after commit, camera/audio loss never rolls scene back
+ok 53 - A5: after commit, camera/audio loss never rolls scene back
+  ---
+  duration_ms: 0.088213
+  type: 'test'
+  ...
+# Subtest: A5: prewarm must resolve; rejected/cancelled work never reports ready
+ok 54 - A5: prewarm must resolve; rejected/cancelled work never reports ready
+  ---
+  duration_ms: 0.202966
+  type: 'test'
+  ...
+# Subtest: A5: reentrant commit callbacks cannot commit twice
+ok 55 - A5: reentrant commit callbacks cannot commit twice
+  ---
+  duration_ms: 0.534797
+  type: 'test'
+  ...
+# Subtest: A5: absent/invalid landmarks never count as a gesture
+ok 56 - A5: absent/invalid landmarks never count as a gesture
+  ---
+  duration_ms: 0.205701
+  type: 'test'
+  ...
+# Subtest: A5: intermediate valid pose can close an armed palm, but cannot extend a fist hold
+ok 57 - A5: intermediate valid pose can close an armed palm, but cannot extend a fist hold
+  ---
+  duration_ms: 0.124508
+  type: 'test'
+  ...
+# Subtest: pose classifier: synthetic palm/fist remain stable under rotation and scaling
+ok 58 - pose classifier: synthetic palm/fist remain stable under rotation and scaling
+  ---
+  duration_ms: 0.577572
+  type: 'test'
+  ...
+# Subtest: Worker adapter: camera denied/missing stay fail-closed with specific status
+    # Subtest: denied
+    ok 1 - denied
+      ---
+      duration_ms: 0.790242
+      type: 'test'
+      ...
+    # Subtest: missing
+    ok 2 - missing
+      ---
+      duration_ms: 0.207193
+      type: 'test'
+      ...
+    1..2
+ok 59 - Worker adapter: camera denied/missing stay fail-closed with specific status
+  ---
+  duration_ms: 1.303607
+  type: 'test'
+  ...
+# Subtest: Worker adapter: no fallback when Worker unsupported
+ok 60 - Worker adapter: no fallback when Worker unsupported
+  ---
+  duration_ms: 0.237729
+  type: 'test'
+  ...
+# Subtest: Worker adapter: model/inference failures stop camera and terminate Worker
+ok 61 - Worker adapter: model/inference failures stop camera and terminate Worker
+  ---
+  duration_ms: 0.71531
+  type: 'test'
+  ...
+# Subtest: Worker adapter: one frame in flight; stale results discarded; real result gates ready
+ok 62 - Worker adapter: one frame in flight; stale results discarded; real result gates ready
+  ---
+  duration_ms: 6.015788
+  type: 'test'
+  ...
+# Subtest: Worker adapter: duplicate video frames are not resubmitted
+ok 63 - Worker adapter: duplicate video frames are not resubmitted
+  ---
+  duration_ms: 0.567487
+  type: 'test'
+  ...
+# Subtest: Worker adapter: hide/show invalidates captured frame and cancels hold
+ok 64 - Worker adapter: hide/show invalidates captured frame and cancels hold
+  ---
+  duration_ms: 0.504752
+  type: 'test'
+  ...
+# Subtest: Worker adapter: disposal during bitmap creation closes frame, does not send
+ok 65 - Worker adapter: disposal during bitmap creation closes frame, does not send
+  ---
+  duration_ms: 0.632014
+  type: 'test'
+  ...
+# Subtest: Worker adapter: two identities survive result order reversal; garden still rejects two hands
+ok 66 - Worker adapter: two identities survive result order reversal; garden still rejects two hands
+  ---
+  duration_ms: 1.203326
+  type: 'test'
+  ...
+# Subtest: Worker adapter: epoch reset rejects old frame, keeps camera/worker, gives new identity
+ok 67 - Worker adapter: epoch reset rejects old frame, keeps camera/worker, gives new identity
+  ---
+  duration_ms: 0.509719
+  type: 'test'
+  ...
+# Subtest: integration: intro/letter gate blocks collapse; fresh palm and one-second fist commit once when exploring
+ok 68 - integration: intro/letter gate blocks collapse; fresh palm and one-second fist commit once when exploring
+  ---
+  duration_ms: 0.513916
+  type: 'test'
+  ...
+# Subtest: integration: opening a letter mid-hold cancels arming and requires a new palm
+ok 69 - integration: opening a letter mid-hold cancels arming and requires a new palm
+  ---
+  duration_ms: 0.255706
+  type: 'test'
+  ...
+# Subtest: integration: hidden or disposed experience cannot accept a collapse gesture
+ok 70 - integration: hidden or disposed experience cannot accept a collapse gesture
+  ---
+  duration_ms: 0.205219
+  type: 'test'
+  ...
+# Subtest: binary asset fetch preserves bytes and reports completion
+ok 71 - binary asset fetch preserves bytes and reports completion
+  ---
+  duration_ms: 21.048291
+  type: 'test'
+  ...
+# Subtest: binary asset fetch surfaces errors instead of hanging
+ok 72 - binary asset fetch surfaces errors instead of hanging
+  ---
+  duration_ms: 0.550771
+  type: 'test'
+  ...
+# Subtest: slow binary asset fetch is cancelled
+ok 73 - slow binary asset fetch is cancelled
+  ---
+  duration_ms: 11.075672
+  type: 'test'
+  ...
+# Subtest: A12: handoff discards garden fist; fresh open palm awakens once
+ok 74 - A12: handoff discards garden fist; fresh open palm awakens once
+  ---
+  duration_ms: 0.690702
+  type: 'test'
+  ...
+# Subtest: A13: no additional palm arming gate for a new pinch or fist after a neutral baseline
+ok 75 - A13: no additional palm arming gate for a new pinch or fist after a neutral baseline
+  ---
+  duration_ms: 0.255896
+  type: 'test'
+  ...
+# Subtest: A13/A14: pinch hysteresis and release produce exactly one split, never awaken/swipe too
+ok 76 - A13/A14: pinch hysteresis and release produce exactly one split, never awaken/swipe too
+  ---
+  duration_ms: 0.340223
+  type: 'test'
+  ...
+# Subtest: A13: held fist needs exactly 1000ms and fires once until released
+ok 77 - A13: held fist needs exactly 1000ms and fires once until released
+  ---
+  duration_ms: 0.150477
+  type: 'test'
+  ...
+# Subtest: A13: 24/30/60Hz and irregular sampling all measure elapsed fist duration
+ok 78 - A13: 24/30/60Hz and irregular sampling all measure elapsed fist duration
+  ---
+  duration_ms: 0.27804
+  type: 'test'
+  ...
+# Subtest: A13: interrupted fist cancels its whole hold and never splits an earlier grab
+ok 79 - A13: interrupted fist cancels its whole hold and never splits an earlier grab
+  ---
+  duration_ms: 0.226051
+  type: 'test'
+  ...
+# Subtest: A13/A14: loss, empty hands, stale result and watchdog never synthesize actions
+ok 80 - A13/A14: loss, empty hands, stale result and watchdog never synthesize actions
+  ---
+  duration_ms: 0.186371
+  type: 'test'
+  ...
+# Subtest: A14: duplicate/out-of-order frames cannot add time; future/NaN frames invalidate
+ok 81 - A14: duplicate/out-of-order frames cannot add time; future/NaN frames invalidate
+  ---
+  duration_ms: 0.181534
+  type: 'test'
+  ...
+# Subtest: A14: continuous swipe >1.2 widths/sec for 150ms, direction and cooldown
+ok 82 - A14: continuous swipe >1.2 widths/sec for 150ms, direction and cooldown
+  ---
+  duration_ms: 0.297229
+  type: 'test'
+  ...
+# Subtest: A14: slow motion, short burst, direction reversal or pinched movement cannot swipe
+ok 83 - A14: slow motion, short burst, direction reversal or pinched movement cannot swipe
+  ---
+  duration_ms: 0.195445
+  type: 'test'
+  ...
+# Subtest: A14: two valid hands separate >35% within 500ms; one tear, no other action
+ok 84 - A14: two valid hands separate >35% within 500ms; one tear, no other action
+  ---
+  duration_ms: 0.250078
+  type: 'test'
+  ...
+# Subtest: A14: tear rejects late growth, lost second hand, changed identity and malformed data
+ok 85 - A14: tear rejects late growth, lost second hand, changed identity and malformed data
+  ---
+  duration_ms: 0.215004
+  type: 'test'
+  ...
+# Subtest: A13: new hand identity cannot inherit a hold or trigger release
+ok 86 - A13: new hand identity cannot inherit a hold or trigger release
+  ---
+  duration_ms: 0.200823
+  type: 'test'
+  ...
+# Subtest: A12: High/Medium/Gentle have 10/8/7 dormant universes across exactly three clusters
+ok 87 - A12: High/Medium/Gentle have 10/8/7 dormant universes across exactly three clusters
+  ---
+  duration_ms: 0.635509
+  type: 'test'
+  ...
+# Subtest: A13: nearest orb awakens; grab/release branches into 2–3 adjacent possibilities
+ok 88 - A13: nearest orb awakens; grab/release branches into 2–3 adjacent possibilities
+  ---
+  duration_ms: 5.026565
+  type: 'test'
+  ...
+# Subtest: A13: each child can be grabbed and split again; no silent no-op on repeated splitting
+ok 89 - A13: each child can be grabbed and split again; no silent no-op on repeated splitting
+  ---
+  duration_ms: 21.20709
+  type: 'test'
+  ...
+# Subtest: A13: held universe collapses preferentially and remains a retained singularity
+ok 90 - A13: held universe collapses preferentially and remains a retained singularity
+  ---
+  duration_ms: 3.147089
+  type: 'test'
+  ...
+# Subtest: A13: loss freezes grabbed orb and rotation while independent world time continues
+ok 91 - A13: loss freezes grabbed orb and rotation while independent world time continues
+  ---
+  duration_ms: 3.775918
+  type: 'test'
+  ...
+# Subtest: A13: quality switch preserves held universe; all clusters stay represented
+ok 92 - A13: quality switch preserves held universe; all clusters stay represented
+  ---
+  duration_ms: 0.208234
+  type: 'test'
+  ...
+# Subtest: A13: swipe cycles three clusters; tear selects farther existing region
+ok 93 - A13: swipe cycles three clusters; tear selects farther existing region
+  ---
+  duration_ms: 0.248364
+  type: 'test'
+  ...
+# Subtest: A14 numerical: sub-deadband stationary jitter gives exactly unchanged position
+ok 94 - A14 numerical: sub-deadband stationary jitter gives exactly unchanged position
+  ---
+  duration_ms: 0.507215
+  type: 'test'
+  ...
+# Subtest: A14 numerical: hand jump and long render gap are bounded by velocity, not teleport
+ok 95 - A14 numerical: hand jump and long render gap are bounded by velocity, not teleport
+  ---
+  duration_ms: 0.558363
+  type: 'test'
+  ...
+# Subtest: A14 numerical: palm quaternion jitter/hemisphere flips stay stable; turn speed bounded
+ok 96 - A14 numerical: palm quaternion jitter/hemisphere flips stay stable; turn speed bounded
+  ---
+  duration_ms: 0.137858
+  type: 'test'
+  ...
+# Subtest: A14: hand features use palm-relative pinch, mirrored position and normalized 3D rotation
+ok 97 - A14: hand features use palm-relative pinch, mirrored position and normalized 3D rotation
+  ---
+  duration_ms: 0.292801
+  type: 'test'
+  ...
+# Subtest: A3: slow garden does not change secondary resolution through the new controller
+ok 98 - A3: slow garden does not change secondary resolution through the new controller
+  ---
+  duration_ms: 0.396438
+  type: 'test'
+  ...
+# Subtest: A3: sustained pressure steps bloom down within bounds, with cooldown; stable recovery is slower
+ok 99 - A3: sustained pressure steps bloom down within bounds, with cooldown; stable recovery is slower
+  ---
+  duration_ms: 1.135353
+  type: 'test'
+  ...
+# Subtest: A3: threshold noise, isolated stalls, hidden tab and state changes do not make resolution oscillate
+ok 100 - A3: threshold noise, isolated stalls, hidden tab and state changes do not make resolution oscillate
+  ---
+  duration_ms: 0.397119
+  type: 'test'
+  ...
+# Subtest: A12: conservative culling keeps on-screen spheres and edge/deformation margin
+ok 101 - A12: conservative culling keeps on-screen spheres and edge/deformation margin
+  ---
+  duration_ms: 0.272281
+  type: 'test'
+  ...
+# Subtest: A16: FPS qualification requires active audio AND tracking; foreground stalls stay visible
+ok 102 - A16: FPS qualification requires active audio AND tracking; foreground stalls stay visible
+  ---
+  duration_ms: 0.347013
+  type: 'test'
+  ...
+# Subtest: A16: no qualified samples never reports fabricated FPS
+ok 103 - A16: no qualified samples never reports fabricated FPS
+  ---
+  duration_ms: 0.097797
+  type: 'test'
+  ...
+# Subtest: A15: critical synthesis yields finite stereo, headroom, tapered boundaries and valid PCM
+ok 104 - A15: critical synthesis yields finite stereo, headroom, tapered boundaries and valid PCM
+  ---
+  duration_ms: 866.797699
+  type: 'test'
+  ...
+# Subtest: A15: ambience loop wraps with bounded amplitude and slope differences, without a silent seam
+ok 105 - A15: ambience loop wraps with bounded amplitude and slope differences, without a silent seam
+  ---
+  duration_ms: 177.0096
+  type: 'test'
+  ...
+# Subtest: A15: critical synthesis is deterministic and rejects unspecified cues
+ok 106 - A15: critical synthesis is deterministic and rejects unspecified cues
+  ---
+  duration_ms: 41.290526
+  type: 'test'
+  ...
+1..106
+# tests 108
+# suites 0
+# pass 108
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8417.310603

@@ -1,3 +1,4 @@
+// COLLAPSE INTEGRATION: existing garden retained; transition ownership and cleanup added.
 import { applyContent } from "./content.js";
 import * as THREE from "three";
 import { GardenScene } from "./scene.js";
@@ -6,7 +7,11 @@ import { Atmosphere } from "./atmosphere.js";
 import { FlowerInteraction } from "./interaction.js";
 import { LetterController } from "./letter.js";
 import { GardenAudio } from "./audio.js";
+import { GardenExperience } from "./experience.js";
+import { GardenCollapse } from "./collapse.js";
+import { MultiverseExperience } from "./multiverse.js";
 import { CONFIG } from "./config.js";
+import { PerformanceMetrics } from "./performance-metrics.js";
 
 export async function start({ progress = () => {} } = {}) {
   const gsap = window.gsap;
@@ -14,7 +19,7 @@ export async function start({ progress = () => {} } = {}) {
   const canvas = document.querySelector("#garden-canvas");
   const media = matchMedia("(prefers-reduced-motion: reduce)");
   const state = { phase: "loading", quality: matchMedia("(pointer: coarse)").matches || innerWidth < 650 ? "low" : "high", automaticQuality: true, motion: !media.matches };
-  let scene, garden, atmosphere, interaction, letter, audio;
+  let scene, garden, atmosphere, interaction, letter, audio, experience, collapse, multiverse;
   let frame = 0;
   let intro;
   let disposed = false;
@@ -27,6 +32,7 @@ export async function start({ progress = () => {} } = {}) {
   const hint = document.querySelector("#garden-hint");
   const announce = message => { document.querySelector("#status-announcement").textContent = message; };
   const world = new THREE.Vector3();
+  const metrics = new PerformanceMetrics();
   let elapsed = 0;
   let last = performance.now();
   let qualityTime = 0;
@@ -40,11 +46,13 @@ export async function start({ progress = () => {} } = {}) {
     cancelAnimationFrame(frame);
     intro?.kill();
     listeners.abort();
+    experience?.dispose();
+    multiverse?.dispose();
+    collapse?.dispose();
     interaction?.dispose();
     letter?.dispose();
     audio?.dispose();
-    garden?.dispose();
-    atmosphere?.dispose();
+    if (!collapse?.gardenDisposed) { garden?.dispose(); atmosphere?.dispose(); }
     scene?.dispose();
   }
 
@@ -86,9 +94,9 @@ export async function start({ progress = () => {} } = {}) {
     });
     interaction = new FlowerInteraction({
       canvas, camera: scene.camera, garden, gsap,
-      canInteract: () => state.phase === "exploring",
+      canInteract: () => state.phase === "exploring" && !collapse?.active,
       onChoose: (flower, element) => {
-        if (state.phase !== "exploring" || !flower.definition.trigger) return;
+        if (state.phase !== "exploring" || collapse?.active || !flower.definition.trigger) return;
         letter.open(flower, element);
       },
     });
@@ -98,14 +106,18 @@ export async function start({ progress = () => {} } = {}) {
       cancelAnimationFrame(frame);
       scene.controls.enabled = false;
       letter.dispose();
-      audio.disable();
+      // COLLAPSE INTEGRATION: release audio Worker/context on terminal WebGL loss.
+      audio.dispose();
+      experience?.dispose();
+      multiverse?.dispose();
+      collapse?.dispose();
       const notice = document.querySelector("#view-notice");
       notice.textContent = "The graphics connection paused. Refresh to return to the garden.";
       notice.hidden = false;
       announce(notice.textContent);
     }, options);
     canvas.addEventListener("webglcontextrestored", () => location.reload(), options);
-    window.addEventListener("resize", () => { scene.resize(); atmosphere.setQuality(state.quality); }, options);
+    window.addEventListener("resize", () => { scene.resize(); if (!collapse?.gardenDisposed) atmosphere.setQuality(state.quality); }, options);
     window.addEventListener("pointermove", event => {
       scene.pointer.x = event.clientX / innerWidth * 2 - 1;
       scene.pointer.y = -(event.clientY / innerHeight * 2 - 1);
@@ -121,8 +133,9 @@ export async function start({ progress = () => {} } = {}) {
     function applyQuality(name, automatic = false) {
       state.quality = name;
       scene.setQuality(name);
-      garden.setQuality(name, gsap);
-      atmosphere.setQuality(name);
+      if (!collapse?.active) { garden.setQuality(name, gsap); atmosphere.setQuality(name); }
+      collapse?.setQuality(name);
+      multiverse?.setQuality(name);
       qualityTime = elapsed;
       sampleDuration = 0;
       sampleCount = 0;
@@ -153,6 +166,7 @@ export async function start({ progress = () => {} } = {}) {
     updateMotionButton();
 
     function finishIntro() {
+      if (disposed || collapse?.active) return;
       state.phase = "exploring";
       scene.controls.enabled = true;
       replayButton.disabled = false;
@@ -164,7 +178,7 @@ export async function start({ progress = () => {} } = {}) {
     }
 
     function playIntro(replay = false) {
-      if (disposed) return;
+      if (disposed || collapse?.active) return;
       state.phase = "intro";
       scene.controls.enabled = false;
       replayButton.disabled = true;
@@ -207,14 +221,24 @@ export async function start({ progress = () => {} } = {}) {
       frame = requestAnimationFrame(render);
       const rawDelta = Math.max(0, (now - last) / 1000);
       last = now;
+      experience?.tick();
+      audio.update();
+      collapse?.update(rawDelta * 1000);
+      scene.observeFrame(rawDelta*1000,now,experience?.sceneState.state??"garden_intro");
       if (document.hidden) return;
       const delta = Math.min(rawDelta, 0.05);
-      if (state.motion) elapsed += delta;
-      garden.update(elapsed);
-      atmosphere.update(elapsed, media.matches);
+      multiverse?.update(delta);
+      if (state.motion && !collapse?.active) elapsed += delta;
+      if (!collapse?.gardenDisposed) { garden.update(elapsed); atmosphere.update(elapsed, media.matches); }
       scene.update(delta, state.motion);
-      interaction.update();
+      if (!collapse?.active) interaction.update();
       scene.render(delta);
+      if(experience){
+        const audioStatus=audio.snapshot(),tracking=experience.tracker.snapshot();
+        let stage=experience.sceneState.state;
+        if(stage==="garden_break"&&collapse.clock.time>=collapse.schedule.destructionStart&&collapse.clock.time<collapse.schedule.pullStart)stage="peak_collapse";
+        metrics.record(stage,rawDelta*1000,{audioActive:audioStatus.active,trackingActive:tracking.inferenceActive,visible:!document.hidden});
+      }
       if (state.automaticQuality && state.motion && state.phase === "exploring" && elapsed - sampleWarmup > 8 && elapsed - qualityTime > 12) {
         sampleDuration += Math.min(rawDelta, 0.15);
         sampleCount += 1;
@@ -232,6 +256,32 @@ export async function start({ progress = () => {} } = {}) {
     if (scene.renderer.compileAsync) await scene.renderer.compileAsync(scene.scene, scene.camera);
     progress(1);
     applyContent();
+    collapse = new GardenCollapse({
+      scene, garden, atmosphere, audio, gsap, quality: state.quality,
+      onState: next => { experience.sceneState.advance(next); },
+      onGardenDisposed: () => { state.phase = "cinematic"; },
+      onHandoff: () => { state.phase = "arrival"; multiverse.beginArrival(); },
+    });
+    multiverse = new MultiverseExperience({scene,collapse,audio,quality:state.quality,onInteractive:()=>{
+      experience.sceneState.advance("multiverse_interaction");experience.tracker.resetEpoch();state.phase="multiverse";
+    }});
+    experience = new GardenExperience({ audio, hint,
+      canCommit: () => state.phase === "exploring" && letter.status === "closed" && !collapse.active,
+      onHands:(sample,now)=>multiverse.sample(sample,now),onTrackingLost:()=>multiverse.lose(),onCommit: () => {
+      intro?.kill();
+      gsap.killTweensOf(canvas); gsap.set(canvas, { opacity: 1 });
+      // Stop conflicting garden/letter tweens while preserving the current camera pose.
+      interaction.setHover(null);
+      letter.dispose(); interaction.dispose();
+      garden.flowers.forEach(flower => Object.values(flower.uniforms).forEach(uniform => gsap.killTweensOf(uniform)));
+      gsap.killTweensOf(garden.wind); gsap.killTweensOf(scene.camera.position);
+      gsap.killTweensOf(scene.controls.target); gsap.killTweensOf(scene.parallax);
+      replayButton.disabled = true; motionButton.disabled = true; skipButton.hidden = true;
+      state.phase = "cinematic";
+      collapse.start();
+      multiverse.connectTimeline(collapse.timeline);
+    } });
+    void experience.start(async () => { await collapse.prewarm(); await multiverse.prewarm(); });
     document.body.classList.remove("loading");
     gsap.to("#loading-screen", { autoAlpha: 0, duration: 0.65, onComplete: () => { document.querySelector("#loading-screen").hidden = true; } });
     playIntro();
@@ -240,8 +290,9 @@ export async function start({ progress = () => {} } = {}) {
 
     if (new URLSearchParams(location.search).has("debug")) {
       window.__FLOWERS_DEBUG__ = {
-        getState: () => ({ ...state, letter: letter.status, drawCalls: scene.renderer.info.render.calls, triangles: scene.renderer.info.render.triangles }),
-        getTargets: () => garden.flowers.map(flower => {
+        getState: () => ({ ...state, experience: experience.snapshot(), collapse: collapse.snapshot(), multiverse: multiverse.snapshot(), audio:audio.snapshot(),tracking:experience.tracker.snapshot(),renderBudget:scene.performanceSnapshot(),letter: collapse.active ? "closed" : letter.status, drawCalls: scene.renderer.info.render.calls, triangles: scene.renderer.info.render.triangles }),
+        getPerformance: () => metrics.report({userAgent:navigator.userAgent,viewport:[innerWidth,innerHeight],quality:state.quality,render:scene.performanceSnapshot(),audio:audio.snapshot(),tracking:experience.tracker.snapshot()}),
+        getTargets: () => collapse.gardenDisposed ? [] : garden.flowers.map(flower => {
           const p = flower.proxy.getWorldPosition(new THREE.Vector3()).project(scene.camera);
           return { id: flower.definition.id, trigger: Boolean(flower.definition.trigger), visible: flower.proxy.userData.pickable, x: (p.x + 1) * innerWidth / 2, y: (1 - p.y) * innerHeight / 2 };
         }),

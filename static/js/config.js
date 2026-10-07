@@ -11,6 +11,52 @@ export const CONTENT = Object.freeze({
 });
 
 export const CONFIG = Object.freeze({
+  // COLLAPSE INTEGRATION BEGIN: new settings; original settings below remain unchanged.
+  // All collapse beats and secondary budgets are tunable here.
+  collapse: {
+    holdMs: 1000,
+    background: "#23212C",
+    freeze: 2.5, slash: 4, blackHole: 10, rapidExpansion: 5,
+    destruction: 10, destructionOverlap: 3, finalPull: 6, voidFall: 5,
+    hole: { x: 2.0, y: 3.5, z: -5.8, radius: 3.1 },
+    slashLength: 13, slashWidth: 0.72, slashDepth: 0.24,
+    voidDepth: 48, voidRadius: 6.4,
+    fogDensity: 0.018, exposure: 1.05,
+    bloom: { strength: 0.38, radius: 0.45, threshold: 1.08 },
+    criticalAudioPaths: [], // Optional licensed overrides; otherwise original synthesis.
+  },
+  multiverse: {
+    arrival: 4, clusterSpacing: 18, viewDistance: 14,
+    positionRate: 9, positionDeadband: 0.035, maxGrabSpeed: 7,
+    rotationRate: 8, rotationDeadband: 0.035, maxAngularSpeed: 3,
+    cameraRate: 2.4, cameraSpeed: 12, splitDuration: 1.8, orbCollapseDuration: 2.5,
+    tearDuration: 2.5,
+  },
+  audioEngine: {
+    tail: 1.2, master: .8, buses: {music: 1, soundscape: .8, effects: .8},
+    peak: .65, maxVoice: .4, attack: .08, release: .8, ambience: .38, prewarmTimeoutMs: 20000,
+  },
+  performance: {
+    bloomScales: [1, .85, .70, .55], bloomByQuality: {high: 1, medium: .8, low: .6},
+    windowMs: 1500, minSamples: 45, warmupMs: 4000, stateWarmupMs: 1000,
+    cooldownMs: 6000, downMs: 22.2, upMs: 17.5, downWindows: 2, upWindows: 4,
+    cullMargin: 1, maxMetricFrames: 7200,
+  },
+  handTracking: {
+    version: "0.10.22",
+    moduleUrl: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs",
+    wasmRoot: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm",
+    modelUrl: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+    inferenceHz: 30, staleMs: 120, startupTimeoutMs: 20000, inferenceTimeoutMs: 5000,
+    confidence: 0.65, identityMaxDistance: 0.25,
+    pose: { extendedAngle: 155, extendedRatio: 1.10, thumbAngle: 145, thumbSpread: 0.45,
+      foldedAngle: 115, foldedDistance: 0.85, thumbClosed: 1.0 },
+    pinchClose: 0.35, pinchRelease: 0.50,
+    swipeSpeed: 1.2, swipeDurationMs: 150, swipeCooldownMs: 700,
+    tearIncrease: 0.35, tearWindowMs: 500,
+  },
+  // COLLAPSE INTEGRATION END
+
   background: "#070e11",
   groundY: -1.08,
 
@@ -320,6 +366,9 @@ export const FLOWERS = [
 
 export const QUALITY = Object.freeze({
   high: {
+    // COLLAPSE INTEGRATION: additional budgets; original garden budget below.
+    universes: 10,
+    collapse: {"dust":340,"distantDebris":110,"fog":12,"secondaryArcs":12},
     dpr: 1.75,
     flowers: 19,
     particles: 160,
@@ -328,6 +377,9 @@ export const QUALITY = Object.freeze({
   },
 
   medium: {
+    // COLLAPSE INTEGRATION: additional budgets; original garden budget below.
+    universes: 8,
+    collapse: {"dust":190,"distantDebris":70,"fog":8,"secondaryArcs":8},
     dpr: 1.35,
     flowers: 16,
     particles: 95,
@@ -336,6 +388,9 @@ export const QUALITY = Object.freeze({
   },
 
   low: {
+    // COLLAPSE INTEGRATION: additional budgets; original garden budget below.
+    universes: 7,
+    collapse: {"dust":90,"distantDebris":40,"fog":5,"secondaryArcs":5},
     dpr: 1,
     flowers: 12,
     particles: 45,

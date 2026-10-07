@@ -1,3 +1,4 @@
+// COLLAPSE INTEGRATION: existing garden retained; transition ownership and cleanup added.
 import * as THREE from "three";
 import { CONFIG, QUALITY } from "./config.js";
 import { seededRandom } from "./utils.js";
@@ -117,7 +118,11 @@ export class Atmosphere {
   }
 
   dispose() {
+    if (this.disposed) return;
+    this.disposed = true;
     this.scene.remove(this.particles, this.grass);
+    this.grass.dispose();
     [this.particleGeometry, this.particleMaterial, this.grassGeometry, this.grassMaterial].forEach(resource => resource.dispose());
+    this.particles=this.grass=this.particleGeometry=this.particleMaterial=this.grassGeometry=this.grassMaterial=null;
   }
 }

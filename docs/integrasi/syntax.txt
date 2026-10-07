@@ -1,0 +1,45 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> flowers-for-you@1.1.0 check
+> node tools/check_js.js
+
+OK atmosphere.js
+OK audio-plan.js
+OK audio-prewarm-worker.js
+OK audio-prewarm.js
+OK audio.js
+OK bootstrap.js
+OK collapse-core.js
+OK collapse-fragments.js
+OK collapse-world.js
+OK collapse.js
+OK config.js
+OK content.js
+OK experience-state.js
+OK experience.js
+OK fallback.js
+OK flowers.js
+OK fracture-data.js
+OK hand-features.js
+OK hand-gesture.js
+OK hand-tracker.js
+OK hand-worker.js
+OK interaction.js
+OK letter.js
+OK loaders.js
+OK main.js
+OK multiverse-gestures.js
+OK multiverse-model.js
+OK multiverse-motion.js
+OK multiverse-world.js
+OK multiverse.js
+OK opening-audio.js
+OK opening-config.js
+OK opening-content.js
+OK opening-motion.js
+OK opening.js
+OK performance-metrics.js
+OK render-budget.js
+OK scene.js
+OK transition-audio.js
+OK utils.js
