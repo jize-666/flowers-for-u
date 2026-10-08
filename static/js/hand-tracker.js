@@ -1,5 +1,6 @@
 import { CONFIG } from "./config.js";
 import { handFeatures } from "./hand-features.js";
+import { camDebugEnabled, camLog, cameraSnapshot } from "./camera-debug.js"; // HAPUS SETELAH DEBUG
 export const trackingNow = () => performance.timeOrigin + performance.now();
 
 /** One in-flight frame. Camera pixels never leave the browser. No main-thread inference. */
@@ -18,6 +19,9 @@ export class HandTracker {
     this.previous = null;
     this.minimumTimestamp = -Infinity;
     this.settings = CONFIG.handTracking;
+    this.cameraPermissionGranted = false;
+    // HAPUS SETELAH DEBUG: independent heartbeat also shows a stalled render loop.
+    if (camDebugEnabled) this.debugTimer = setInterval(() => camLog("tracker.heartbeat", { ...this.snapshot(), ...cameraSnapshot(this.stream, this.video), initialized: !!this.initialized, rawLastInferenceAgeMs: this.debugLastInference == null ? null : trackingNow() - this.debugLastInference, rawResultsLastSecond: (this.debugResults || []).filter(time => trackingNow() - time <= 1000).length }), 1000);
     document.addEventListener("visibilitychange", () => {
       this.previous = null;
       this.tracks = [];
@@ -34,6 +38,7 @@ export class HandTracker {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30 } } });
       if (this.stopped) { stream.getTracks().forEach(track => track.stop()); return; }
       this.stream = stream;
+      this.cameraPermissionGranted = true;
       this.video = document.createElement("video");
       this.video.muted = true;
       this.video.playsInline = true;
@@ -44,25 +49,28 @@ export class HandTracker {
         track.addEventListener("unmute", () => this.onReady("cameraReady", true), { signal: this.events.signal });
       }
       // Also covers a camera/video implementation whose play promise never settles.
-      this.startupTimer = setTimeout(() => this.fail("TRACKER_TIMEOUT"), this.settings.startupTimeoutMs);
+      this.startupTimer = setTimeout(() => this.fail("TRACKER_TIMEOUT", "startup: no accepted inference before deadline"), this.settings.startupTimeoutMs);
       await this.video.play();
       if (this.stopped) return;
       this.onReady("cameraReady", true);
-      this.worker = new Worker(new URL("./hand-worker.js", import.meta.url), { type: "module" });
-      this.worker.onerror = () => this.fail("WORKER_FAILED");
-      this.worker.onmessageerror = () => this.fail("WORKER_FAILED");
+      // CAMERA FIX: MediaPipe's WASM loader uses importScripts, which module Workers reject.
+      this.worker = new Worker(new URL("./hand-worker.js", import.meta.url));
+      this.worker.onerror = event => this.fail("WORKER_FAILED", `${event.message || "worker error"} ${event.filename || ""}:${event.lineno || ""}`);
+      this.worker.onmessageerror = () => this.fail("WORKER_FAILED", "messageerror: worker response could not be decoded");
       this.worker.onmessage = event => this.receive(event.data);
-      this.worker.postMessage({ type: "init" });
+      this.worker.postMessage({ type: "init", settings: this.settings, debugCam: camDebugEnabled }); // HAPUS SETELAH DEBUG: debugCam
     } catch (error) {
       const code = error.code || ({ NotAllowedError: "CAMERA_DENIED", NotFoundError: "CAMERA_MISSING", NotReadableError: "CAMERA_BUSY" }[error.name]) || "CAMERA_FAILED";
-      this.fail(code);
+      this.fail(code, `${error.name}: ${error.message}`);
     }
   }
   receive(data) {
     if (this.stopped) return;
+    if (data.type === "debug") { camLog("worker.stage", data); return; } // HAPUS SETELAH DEBUG
     if (data.type === "error") { this.fail(data.code, data.detail); return; }
     if (data.type === "initialized") {
       this.initialized = true;
+      camLog("worker.initialized"); // HAPUS SETELAH DEBUG
       // Readiness requires a successful real inference, not just a loaded model.
       return;
     }
@@ -71,7 +79,14 @@ export class HandTracker {
     this.pending = null;
     clearTimeout(this.inferenceTimer);
     const now = trackingNow();
+    // HAPUS SETELAH DEBUG: raw completions include stale/empty results, unlike trigger-ready samples.
+    if (camDebugEnabled) {
+      this.debugResults = (this.debugResults || []).filter(time => now - time <= 1000);
+      this.debugResults.push(now); this.debugLastInference = now;
+    }
+    camLog("inference.result", { type: data.type, sampleAgeMs: now - data.timestamp, rawHands: data.landmarks?.length ?? 0, workerDurationMs: data.durationMs ?? null }); // HAPUS SETELAH DEBUG
     if (data.type === "dropped" || document.hidden || !Number.isFinite(data.timestamp) || data.timestamp > now || data.timestamp < this.minimumTimestamp || now - data.timestamp > this.settings.staleMs) {
+      camLog("tracking.rejected", { sampleAgeMs: now - data.timestamp, handValid: false, gesture: "UNKNOWN", reason: "dropped/hidden/invalid timestamp/epoch/stale", hidden: document.hidden, minimumTimestamp: this.minimumTimestamp }); // HAPUS SETELAH DEBUG
       this.previous = null; this.tracks = []; this.onLost(); return;
     }
     clearTimeout(this.startupTimer);
@@ -92,6 +107,7 @@ export class HandTracker {
       available.push(hand);
     }
     this.tracks=nextTracks;
+    camLog("tracking.result", { sampleAgeMs: now - data.timestamp, handValid: available.length > 0, gesture: available.length === 1 ? available[0].pose : "UNKNOWN", validHands: available.length }); // HAPUS SETELAH DEBUG
     if(!available.length){this.previous=null;this.onLost();return;}
     this.onHands({hands:available,timestamp:data.timestamp},now);
     // Garden trigger still accepts exactly one hand; a second hand cannot inherit its hold.
@@ -116,7 +132,7 @@ export class HandTracker {
     this.busy = true;
     const id = ++this.sequence;
     this.pending = id;
-    this.inferenceTimer = setTimeout(() => this.fail("TRACKER_TIMEOUT"), this.settings.inferenceTimeoutMs);
+    this.inferenceTimer = setTimeout(() => this.fail("TRACKER_TIMEOUT", "frame: inference deadline exceeded"), this.settings.inferenceTimeoutMs);
     createImageBitmap(this.video).then(bitmap => {
       if (this.stopped || document.hidden || trackingNow() - now > this.settings.staleMs) {
         bitmap.close(); this.busy = false; this.pending = null;
@@ -129,6 +145,7 @@ export class HandTracker {
   }
   fail(code, detail = "") {
     if (this.stopped) return;
+    camLog("tracker.fail", { code, detail, ...cameraSnapshot(this.stream, this.video) }, true); // HAPUS SETELAH DEBUG
     this.onReady("cameraReady", false);
     this.onReady("trackerReady", false);
     this.onLost();
@@ -137,6 +154,8 @@ export class HandTracker {
   }
   dispose() {
     if(this.cleaned)return;this.cleaned=true;
+    camLog("tracker.dispose", {}, true); // HAPUS SETELAH DEBUG
+    clearInterval(this.debugTimer); // HAPUS SETELAH DEBUG
     this.stopped = true;
     clearTimeout(this.startupTimer);
     clearTimeout(this.inferenceTimer);

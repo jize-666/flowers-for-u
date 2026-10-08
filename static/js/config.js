@@ -44,8 +44,9 @@ export const CONFIG = Object.freeze({
   },
   handTracking: {
     version: "0.10.22",
-    moduleUrl: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs",
-    wasmRoot: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm",
+    // CAMERA FIX: 0.10.22 is unpublished (HTTP 404); keep module and WASM on the same published release.
+    moduleUrl: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/vision_bundle.mjs",
+    wasmRoot: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm",
     modelUrl: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
     inferenceHz: 30, staleMs: 120, startupTimeoutMs: 20000, inferenceTimeoutMs: 5000,
     confidence: 0.65, identityMaxDistance: 0.25,

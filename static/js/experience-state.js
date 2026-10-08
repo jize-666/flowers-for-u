@@ -1,3 +1,4 @@
+import { camLog } from "./camera-debug.js"; // HAPUS SETELAH DEBUG
 /** Public scene states only. Loading, letter UI and readiness are separate. */
 export const SCENE_STATES = Object.freeze([
   "garden_intro", "garden_break", "void_fall", "multiverse_arrival", "multiverse_interaction",
@@ -12,6 +13,7 @@ export class ExperienceState {
   commit() {
     if (this.#index !== 0 || this.#commits !== 0) return false;
     this.#commits = 1;
+    camLog("state", { owner: "ExperienceState", from: this.state, to: "garden_break", reason: "gesture commit" }, true); // HAPUS SETELAH DEBUG
     this.#index = 1;
     this.onChange(this.state);
     return true;
@@ -19,6 +21,7 @@ export class ExperienceState {
   advance(next) {
     // Cinematic owner only; never skip, rewind, or commit via advance().
     if (this.#index === 0 || next !== SCENE_STATES[this.#index + 1]) return false;
+    camLog("state", { owner: "ExperienceState", from: this.state, to: next, reason: "cinematic advance" }, true); // HAPUS SETELAH DEBUG
     this.#index += 1;
     this.onChange(this.state);
     return true;
@@ -56,9 +59,19 @@ export class CollapseTrigger {
     Object.assign(this, { holdMs, staleMs, ready, commit });
   }
   get status() { return this.#status; }
+  // HAPUS SETELAH DEBUG: preserves all original state assignments.
+  setStatus(next, reason) {
+    if (next !== this.#status) camLog("state", { owner: "CollapseTrigger", from: this.#status, to: next, reason }, true);
+    this.#status = next;
+  }
+  // HAPUS SETELAH DEBUG: observational only; duration is based on accepted samples, never wall time.
+  debugSnapshot(now) {
+    return { substate: this.#status, currentHandValid: this.#hand !== null && this.#last !== null && now - this.#last <= this.staleMs,
+      previouslyArmedByOpenPalm: this.#status !== "unarmed", continuousFistHoldMs: this.#start === null ? 0 : this.#last - this.#start };
+  }
   cancel() {
     if (this.#status === "committed") return;
-    this.#status = "unarmed";
+    this.setStatus("unarmed", "cancel: tracking/readiness/staleness; caller in stack");
     this.#start = this.#last = this.#hand = null;
   }
   tick(now) {
@@ -84,14 +97,14 @@ export class CollapseTrigger {
     if (gesture === "OPEN_PALM") {
       this.#start = null;
       this.#hand = handId;
-      this.#status = "armed";
+      this.setStatus("armed", "valid open palm");
       return false;
     }
     if (this.#status === "unarmed") return false;
-    if (this.#status === "armed") { this.#start = timestamp; this.#status = "holding_fist"; }
+    if (this.#status === "armed") { this.#start = timestamp; this.setStatus("holding_fist", "valid fist after palm"); }
     if (timestamp - this.#start < this.holdMs) return false;
     // Latch before calling downstream code: reentrant or repeated samples are harmless.
-    this.#status = "committed";
+    this.setStatus("committed", "continuous fist duration satisfied");
     this.commit();
     return true;
   }

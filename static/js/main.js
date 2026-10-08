@@ -12,6 +12,7 @@ import { GardenCollapse } from "./collapse.js";
 import { MultiverseExperience } from "./multiverse.js";
 import { CONFIG } from "./config.js";
 import { PerformanceMetrics } from "./performance-metrics.js";
+import { camLog, watchState } from "./camera-debug.js"; // HAPUS SETELAH DEBUG
 
 export async function start({ progress = () => {} } = {}) {
   const gsap = window.gsap;
@@ -19,6 +20,7 @@ export async function start({ progress = () => {} } = {}) {
   const canvas = document.querySelector("#garden-canvas");
   const media = matchMedia("(prefers-reduced-motion: reduce)");
   const state = { phase: "loading", quality: matchMedia("(pointer: coarse)").matches || innerWidth < 650 ? "low" : "high", automaticQuality: true, motion: !media.matches };
+  watchState(state, "phase", "garden.phase"); // HAPUS SETELAH DEBUG
   let scene, garden, atmosphere, interaction, letter, audio, experience, collapse, multiverse;
   let frame = 0;
   let intro;
@@ -42,6 +44,7 @@ export async function start({ progress = () => {} } = {}) {
 
   function dispose() {
     if (disposed) return;
+    camLog("app.dispose", {}, true); // HAPUS SETELAH DEBUG
     disposed = true;
     cancelAnimationFrame(frame);
     intro?.kill();
@@ -167,6 +170,7 @@ export async function start({ progress = () => {} } = {}) {
 
     function finishIntro() {
       if (disposed || collapse?.active) return;
+      camLog("bloom.finished", {}, true); // HAPUS SETELAH DEBUG
       state.phase = "exploring";
       scene.controls.enabled = true;
       replayButton.disabled = false;
